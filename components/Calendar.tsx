@@ -30,8 +30,13 @@ export default function Calendar({ className = '', size }: ICalendarProps) {
   const eventsExist = eventsData.length > 0;
 
   return (
-    <div className={twMerge('overflow-hidden rounded-md border border-gray-200 bg-white p-4', className)}>
-      <Heading level={HeadingLevel.h2} typeStyle={HeadingTypeStyle.mdSemibold}>
+    <div
+      className={twMerge(
+        'overflow-hidden rounded-md border border-gray-200 bg-white p-4 calendar-container',
+        className
+      )}
+    >
+      <Heading level={HeadingLevel.h2} typeStyle={HeadingTypeStyle.mdSemibold} className='calendar-title'>
         {t('calendar.title')}
       </Heading>
       <ul>
@@ -53,7 +58,7 @@ export default function Calendar({ className = '', size }: ICalendarProps) {
         ))}
       </ul>
       {eventsExist ? (
-        <div className='pt-4' data-testid='Calendar-button'>
+        <div className='pt-4' data-testid='calendar-button'>
           <GoogleCalendarButton href={CALENDAR_URL} text={t('calendar.viewCalendarBtn')} />
         </div>
       ) : (
