@@ -32,11 +32,15 @@ export default function Calendar({ className = '', size }: ICalendarProps) {
   return (
     <div
       className={twMerge(
-        'overflow-hidden rounded-md border border-gray-200 bg-white p-4 calendar-container',
+        'overflow-hidden rounded-md border border-gray-200 bg-white p-20 lg:p-10 m-5 lg:m-5 w-full h-full calendar-container',
         className
       )}
     >
-      <Heading level={HeadingLevel.h2} typeStyle={HeadingTypeStyle.mdSemibold} className='calendar-title'>
+      <Heading
+        level={HeadingLevel.h2}
+        typeStyle={HeadingTypeStyle.mdSemibold}
+        className='text-1xl sm:text-3xl lg:text-4xl'
+      >
         {t('calendar.title')}
       </Heading>
       <ul>
@@ -47,10 +51,9 @@ export default function Calendar({ className = '', size }: ICalendarProps) {
                 <span className='flex-1 self-center text-center'>{moment(event.date).format('D')}</span>
               </div>
               <div className='grow text-left sm:mt-0 sm:pl-6'>
-                <h2 className='title-font text-xl font-medium text-gray-900 hover:text-gray-500'>{event.title}</h2>
-                <p className='text-gray-600'>
-                  {moment(event.date).local().format('LLLL')} UTC
-                  {moment(event.date).local().format('Z')}
+                <h2 className='text-xl font-medium text-gray-900 hover:text-gray-500'>{event.title}</h2>
+                <p className='text-sm text-gray-600'>
+                  {moment(event.date).local().format('LLLL')} UTC {moment(event.date).local().format('Z')}
                 </p>
               </div>
             </a>
@@ -59,10 +62,14 @@ export default function Calendar({ className = '', size }: ICalendarProps) {
       </ul>
       {eventsExist ? (
         <div className='pt-4' data-testid='calendar-button'>
-          <GoogleCalendarButton href={CALENDAR_URL} text={t('calendar.viewCalendarBtn')} />
+          <GoogleCalendarButton
+            href={CALENDAR_URL}
+            text={t('calendar.viewCalendarBtn')}
+            className='mx-auto flex items-center justify-center h-10 sm:h-12 w-32 sm:w-40 md:w-48 text-sm '
+          />
         </div>
       ) : (
-        <div className='mt-2 text-gray-700'>{t('calendar.noMeetingsMessage')}</div>
+        <div className='mt-2 text-sm text-gray-700'>{t('calendar.noMeetingsMessage')}</div>
       )}
     </div>
   );
