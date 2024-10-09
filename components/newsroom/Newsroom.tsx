@@ -1,8 +1,11 @@
+import React, { useState } from 'react';
+
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
 
 import { HeadingLevel, HeadingTypeStyle } from '@/types/typography/Heading';
 import { ParagraphTypeStyle } from '@/types/typography/Paragraph';
 
+import Loader from '../Loader';
 import ArrowRight from '../icons/ArrowRight';
 import Heading from '../typography/Heading';
 import Paragraph from '../typography/Paragraph';
@@ -11,10 +14,14 @@ import NewsroomArticle from './NewsroomArticle';
 import NewsroomBlogPosts from './NewsroomBlogPosts';
 import NewsroomYoutube from './NewsroomYoutube';
 
+
 /**
  * @description This component displays the latest updates, blog posts, news, and videos.
  */
 export default function Newsroom() {
+
+  const [loading, setLoading] = useState(true);
+
   return (
     <>
       <div className='mt-12 text-center' data-testid='Newsroom-main'>
@@ -77,8 +84,21 @@ export default function Newsroom() {
             </div>
           </div>
           <div className='w-full px-2 md:w-1/2 md:pl-4 md:pr-0'>
-            <div className='mx-auto mt-8 w-full rounded-xl shadow-md md:mt-0' data-testid='Newsroom-Twitter'>
-              <TwitterTimelineEmbed sourceType='profile' screenName='AsyncAPISpec' options={{ tweetLimit: '2' }} />
+            <div className='mx-auto mt-8 w-full rounded-xl shadow-md md:mt-0' style={{ height: '500px' }} data-testid='Newsroom-Twitter'>
+            {loading && (
+                <Loader
+                  loaderText="Loading Twitter feed..."
+                  className="h-full"
+                  pulsating={true}
+                  dark={false} 
+                />
+              )}
+              <TwitterTimelineEmbed
+                sourceType="profile"
+                screenName="AsyncAPISpec"
+                options={{ tweetLimit: '2', height: '500' }} 
+                onLoad={() => setLoading(false)} 
+              />
             </div>
           </div>
         </div>
